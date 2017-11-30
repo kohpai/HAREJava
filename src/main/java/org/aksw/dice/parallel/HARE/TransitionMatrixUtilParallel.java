@@ -1,6 +1,6 @@
 package org.aksw.dice.parallel.HARE;
 
-import org.aksw.dice.HARE.TransitionMatrixUtil;
+import org.aksw.dice.matrixUtil.TransitionMatrixUtil;
 import org.apache.jena.rdf.model.Model;
 
 public class TransitionMatrixUtilParallel {

@@ -3,26 +3,27 @@ package org.aksw.dice.HARE;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import org.aksw.dice.matrixUtil.TransitionMatrixUtil;
 import org.apache.jena.rdf.model.Model;
-import org.ujmp.core.Matrix;
-import org.ujmp.core.SparseMatrix;
-import org.ujmp.core.util.UJMPSettings;
-import org.ujmp.core.util.io.IntelligentFileWriter;
+
+import no.uib.cipr.matrix.DenseMatrix;
+import no.uib.cipr.matrix.Matrix;
+import no.uib.cipr.matrix.sparse.LinkedSparseMatrix;
 
 public class HARERank {
 	private static final Logger LOGGER = Logger.getLogger(HARERank.class.getName());
 
-	public SparseMatrix W;
+	public LinkedSparseMatrix W;
 	// F:the matrix of which the entries are the transition probabilities from
 	// entities to triples,
-	public SparseMatrix F;
+	public LinkedSparseMatrix F;
 
 	// P: is the product matrix
-	Matrix P_n;
-	Matrix P_t;
-	Matrix S;
-	Matrix S_n_Final;
-	Matrix S_t_Final;
+	DenseMatrix P_n;
+	//DenseMatrix P_t;
+	DenseMatrix S;
+	DenseMatrix S_n_Final;
+	DenseMatrix S_t_Final;
 	TransitionMatrixUtil matrxUtil;
 
 	/**
@@ -41,12 +42,15 @@ public class HARERank {
 	}
 
 	public HARERank(Model data) {
-	
+
 		this.matrxUtil = new TransitionMatrixUtil(data);
+
 		this.W = matrxUtil.getW();
 		this.F = matrxUtil.getF();
-		this.P_n = this.F.mtimes(this.W);
-		this.P_t = this.W.mtimes(this.F);
+		
+		this.F.mult(this.W, this.P_n);
+		
+		this.F.mult(this.W, this.P_n);
 		LOGGER.info("HARE Rank Constructor Initialisation Complete ");
 
 	}
@@ -56,6 +60,7 @@ public class HARERank {
 		double alpha = this.matrxUtil.getAlpha();
 		double beta = this.matrxUtil.getBeta();
 
+		
 		double intitialValue = 1 / alpha;
 
 		Matrix S_n = Matrix.Factory.fill(intitialValue, (long) alpha, (long) 1.0);

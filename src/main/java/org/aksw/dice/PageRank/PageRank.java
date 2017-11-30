@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import org.aksw.dice.HARE.HARERank;
-import org.aksw.dice.HARE.TransitionMatrixUtil;
+import org.aksw.dice.matrixUtil.TransitionMatrixUtil;
 import org.apache.jena.rdf.model.Model;
 import org.ujmp.core.Matrix;
 import org.ujmp.core.SparseMatrix;
