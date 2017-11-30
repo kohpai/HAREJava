@@ -4,16 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.aksw.dice.matrixUtil.TransitionMatrixUtil;
+import org.aksw.dice.HARE.HARERank;
+import org.aksw.dice.PageRank.PageRank;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.rdf.model.Statement;
-
-import no.uib.cipr.matrix.Matrix;
-import no.uib.cipr.matrix.sparse.LinkedSparseMatrix;
 
 public class Test {
 	public static void main(String[] args) {
@@ -26,8 +24,9 @@ public class Test {
 				.asList(ResourceFactory.createStatement(r1, p2, r2), ResourceFactory.createStatement(r1, p1, r3)));
 		Model testModel = ModelFactory.createDefaultModel();
 		testModel.add(actualTriples);
-		TransitionMatrixUtil matrixUtil = new TransitionMatrixUtil(testModel);
-		Matrix P_n = new Matrix();
+		PageRank matrixUtil = new PageRank(testModel);
+		matrixUtil.calculateRank();
+	
 	
 	}
 	
