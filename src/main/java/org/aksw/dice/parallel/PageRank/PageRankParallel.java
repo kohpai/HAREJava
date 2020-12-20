@@ -7,23 +7,20 @@ import org.ujmp.core.util.UJMPSettings;
 
 public class PageRankParallel {
 
+  TransitionMatrixUtilParallel matrxUtil;
+  private PageRank pageRank;
 
-	TransitionMatrixUtilParallel matrxUtil;
-	private PageRank pageRank;
+  public PageRankParallel(Model data) {
+    UJMPSettings.getInstance().setNumberOfThreads(2);
+    this.matrxUtil = new TransitionMatrixUtilParallel(data);
+    this.setPageRank(new PageRank(data));
+  }
 
-	public PageRankParallel(Model data) {
-		UJMPSettings.getInstance().setNumberOfThreads(2);
-		this.matrxUtil = new TransitionMatrixUtilParallel(data);
-		this.setPageRank(new PageRank(data));
-	}
+  public PageRank getPageRank() {
+    return pageRank;
+  }
 
-	public PageRank getPageRank() {
-		return pageRank;
-	}
-
-	public void setPageRank(PageRank pageRank) {
-		this.pageRank = pageRank;
-	}
-
-	
+  public void setPageRank(PageRank pageRank) {
+    this.pageRank = pageRank;
+  }
 }
