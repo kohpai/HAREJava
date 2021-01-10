@@ -40,11 +40,11 @@ public class RDFReadWriteHandler {
       outputModel.add(triple);
       if (triple.getObject().isLiteral()) {
         String name = triple.getObject().toString();
-        String psudoName = name.substring(0, name.indexOf("^"));
+        String pseudoName = name.substring(0, name.indexOf("^"));
         String res = null;
-        if (psudoName.contains(" ")) {
-          res = psudoName.replaceAll(" ", "_");
-        } else res = psudoName;
+        if (pseudoName.contains(" ")) {
+          res = pseudoName.replaceAll(" ", "_");
+        } else res = pseudoName;
         Resource r = ResourceFactory.createResource(res);
         outputModel.addLiteral(r, hare, S_n_hare.getAsDouble(0, entityList.indexOf(r)));
       } else {
