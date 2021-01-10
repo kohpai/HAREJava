@@ -40,7 +40,9 @@ public class RDFReadWriteHandler {
       outputModel.add(triple);
       if (triple.getObject().isLiteral()) {
         String name = triple.getObject().toString();
-        String pseudoName = name.substring(0, name.indexOf("^"));
+        int index = name.indexOf("^");
+        String pseudoName =
+            index < 0 ? name : name.substring(0, index); // in case of string literal without type
         String res = null;
         if (pseudoName.contains(" ")) {
           res = pseudoName.replaceAll(" ", "_");
